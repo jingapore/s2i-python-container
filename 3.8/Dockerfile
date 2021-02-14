@@ -19,7 +19,8 @@ ENV PYTHON_VERSION=3.8 \
     PYTHONIOENCODING=UTF-8 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    PIP_NO_CACHE_DIR=off
+    PIP_NO_CACHE_DIR=off \
+    PROMPT_COMMAND=""
 
 
 ENV SUMMARY="Platform for building and running Python $PYTHON_VERSION applications" \
@@ -66,7 +67,6 @@ COPY ./root/ /
 #   writable as OpenShift default security model is to run the container
 #   under random UID.
 RUN source scl_source enable rh-python38 && \
-    python3.8 -m venv ${APP_ROOT} && \
     chown -R 1001:0 ${APP_ROOT} && \
     fix-permissions ${APP_ROOT} -P && \
     rpm-file-permissions
